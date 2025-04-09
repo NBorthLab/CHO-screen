@@ -1,0 +1,77 @@
+configfile: "config/config.yaml"
+CONFIGFILE = "config/config.yaml"
+
+RUN_NAME = config["run_name"]
+SAMPLES = config["samples"]
+DURCHGANG = config["durchgang"] 
+VERSION = config["version"]
+NON_ESS_BASIS = "bowtieM"
+
+include: "rules/01_prep_data.smk"
+include: "rules/02_merge_flowcells.smk"
+include: "rules/03_merge_overlapping.smk"
+include: "rules/04_sort_directions.smk"
+include: "rules/05_turn_reverse.smk"
+include: "rules/06_combine_amp.smk"
+include: "rules/07_trim.smk"
+include: "rules/08_bowtie2.smk"
+include: "rules/09_samtools.smk"
+include: "rules/10_2_mageck_count_bam.smk"
+include: "rules/11_2_mageck_count.smk"
+include: "rules/12_2_remove_zeros.smk"
+include: "rules/13_2_descriptive_statistics.smk"
+include: "rules/14_2_prepare_mageck_test.smk"
+include: "rules/15_2_move_files.smk"
+include: "rules/17_2_test_mageck_rra.smk"
+include: "rules/18_2_combine_tables.smk"
+include: "rules/19_2_non_essential.smk"
+include: "rules/20_summary_table.smk"
+include: "rules/21_find_transcripts.smk"
+include: "rules/22_normalise_transcripts.smk"
+include: "rules/23_plot_region_details.smk"
+include: "rules/25_sort_the_results.smk"
+include: "rules/26_summary_table.smk"
+
+
+rule all:
+    input:
+        #"resources/raw/links_created.txt"
+        #expand("resources/unzipped/flowcell_{flowcell}_S{sample}_val_{strand}.fq", sample=SAMPLES, strand=[1,2], flowcell=[1,2])
+        #expand("resources/merged_overlapping_reads/S{sample}.assembled.fastq", sample=SAMPLES)
+        #expand("resources/flowcell_merged/S{sample}_val_{strand}_merged.fq", sample=SAMPLES, strand=[1,2])
+        #expand("resources/fastq_greped/S{sample}_amplicon.fastq", sample=SAMPLES),
+        #expand("resources/trim_all/S{sample}_amplicon_trim.fastq", sample=SAMPLES)
+        #"results/table_bowtieM/" + RUN_NAME + ".count_normalized.txt",
+        #expand("resources/aligned/S{sample}.sam", sample=SAMPLES),
+        #"/table_mageck/" + RUN_NAME + ".count_normalized.txt",
+        expand("resources/table_{table}/" + RUN_NAME + ".count_normalized.txt", table = VERSION),
+        #12_remove_zero
+        expand("resources/table_{version}/" + RUN_NAME + ".count_nozero.txt", version = VERSION),
+        #["mageck", "bowtieM"])
+        #13_descriptive_statistics
+        expand("results/table_{version}/" + RUN_NAME + "fakefile.txt", version = VERSION),
+        #14_prepare_mageck_test
+        expand("resources/table_{version}/results/" + RUN_NAME + ".count_table_region.txt", version = VERSION),
+        #15_move_files
+        #expand("results/table_{version}/results/" + RUN_NAME + ".countsummary.txt", version = VERSION),
+        #16_ des_stat_2
+        #expand("table_{version}/results/{durchgang}/" + RUN_NAME + "_mapping_ratio.png", version = VERSION, durchgang = DURCHGANG)
+        #17_test_mageck
+        #expand("resources/table_{version}/results/{durchgang}_rra/" + RUN_NAME + ".gene_summary.txt",version = VERSION, durchgang = DURCHGANG),
+        #18_combine_tables
+        "results/genes_in_windows.txt",
+        #19_cat_non_essential
+        "results/selected_least_essential.txt",
+        #20_summary_table
+        "results/summary_table.txt",
+        #21_find_transcripts
+        expand("resources/transcripts_{selection}.txt", selection = ["gene_all"]),
+        #22_normalise_transcripts
+        expand("resources/normalised_transcripts_{selection}.txt", selection =["gene_all"]),
+        #23_plot_transcripts
+        expand("results_overview/plot_region_details_{selection}.pdf", selection = ["gene_all"]),
+        #25_sort_results
+        "results_overview/table_mageck/results/region_rra/" + RUN_NAME + ".sgrna_summary.txt",
+        #26_summary_table
+        "results_overview/sgRNA_summary.txt"
+        

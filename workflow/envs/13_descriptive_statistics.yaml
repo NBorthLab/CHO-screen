@@ -1,0 +1,13 @@
+channels:
+  - bioconda
+  - conda-forge
+  - r
+dependencies:
+  - r-base
+  - r-tidyverse
+  - r-tidyr
+  - r-ggplot2
+  - r-cluster
+  - r-ggrepel
+  - r-stringr
+  - r-pheatmap

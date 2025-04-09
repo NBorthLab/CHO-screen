@@ -1,0 +1,26 @@
+
+##give a name to your project/run:
+run_name: screen
+durchgang: ["region"]
+version: ["bowtieM","mageck"]
+##["bowtieM","mageck"]
+
+##enumerate your samples
+samples: ["11","12","13","14","15","16","21","23","24","25","26"]
+
+##Reference file to allignt to:
+##Names start with "GeneName_" followed by unique "Guide pair IDs"
+add_gene_name_path_to_gene_table: "resources/raw/pgRNA_gene_id_sequence_list.fa" 
+
+##Path to library used for mageck
+mageck_library_config: "resources/raw/library_for_mageck_count.txt"
+
+##list samples for count table
+mageck_test_d0_treated: treat_1,treat_2,treat_3,treat_rem,treat_4,treat_5
+mageck_test_d0_control: ctrl_1,ctrl_2,ctrl_rem,ctrl_3,ctrl_4
+
+count_cut_off_per_guide: 100
+
+##list samples to analyse
+mageck_test_mageck_treated: treat_1,treat_2,treat_3,treat_4,treat_5
+mageck_test_mageck_control: ctrl_1,ctrl_2,ctrl_3,ctrl_4

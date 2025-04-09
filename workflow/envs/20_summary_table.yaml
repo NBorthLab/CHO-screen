@@ -1,0 +1,14 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - r-base
+  - r-dplyr
+  - r-readxl
+  - r-data.table
+  - r-tidyr
+  - r-stringr
+  - bioconductor-rtracklayer
+  - bioconductor-genomeintervals
+  - bioconductor-genomicranges
+  - bioconductor-genomicfeatures

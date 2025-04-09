@@ -1,0 +1,9 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - r-base
+  - r-dplyr
+  - r-stringr
+  - bioconductor-karyoploter
+  - bioconductor-genomicfeatures=1.54.1

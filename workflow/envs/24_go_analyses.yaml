@@ -1,0 +1,8 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - r-base
+  - r-ggplot2
+  - bioconductor-clusterprofiler
+  - bioconductor-org.mm.eg.db

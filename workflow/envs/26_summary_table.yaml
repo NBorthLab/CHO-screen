@@ -1,0 +1,15 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - r-base
+  - r-dplyr
+  - r-stringr
+  - r-data.table
+  - r-ggpolypath
+  - r-venn
+  - r-ggplot2
+  - bioconductor-karyoploter
+  - bioconductor-genomicfeatures
+  - bioconductor-genomeIntervals
+  

@@ -1,0 +1,17 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - r-base
+  - r-dplyr
+  - r-stringr
+  - r-ggplot2
+  - r-venn
+  - r-plyr
+  - r-readxl
+  - r-data.table
+  - r-tidyr
+  - r-ggrepel
+  - bioconductor-genomeintervals
+  - bioconductor-deseq2
+  - bioconductor-mageckflute
