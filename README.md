@@ -42,9 +42,9 @@ The work aims to identify using a genome-scale CRISPR screen approach.
 └── README.md
 ```
 
-preprocess for workflow:
-*) update parameters within ./config/config.yaml
-*) provide ./raw/53h_dense.bed in structure
+### preprocess for workflow:
+- update parameters within ./config/config.yaml
+- provide ./raw/53h_dense.bed in structure
 ```
 $ head 53h_dense.bed 
 #track name="Tp4" description="Tp4 (Emission ordered)" visibility=1 itemRgb="On"
@@ -58,7 +58,7 @@ chr10   146600  155400  Repressed heterochromatin       0       .       146600  
 chr10   155400  171000  Quiescent/low   0       .       155400  171000  #d9d9d9
 chr10   171000  173000  Repressed heterochromatin       0       .       171000  173000  #3399ff
 ```
-*) provide ./raw/aligned_sorted_INH040x.bam
+- provide ./raw/aligned_sorted_INH040x.bam
 ```
 $ samtools view aligned_sorted_INH0401.bam | head
 7001253F:661:CD4LWANXX:1:2313:13165:87523#ACATCCGACTGCGGAT      16      NW_023276806.1  7549    255     20M1671N33M7289N22M     *       0       0       ACTAACCCTAACCCTAACCCTACCCCTCTAACCCTAAC
@@ -82,7 +82,7 @@ ACAGACAGATCAGAGAATTGCAACAGGAGAACAAAGAACTGCGAA   7///FFFB///B<//</<<///<///7<///<
 7001253F:661:CD4LWANXX:1:1101:1941:75923#ACATCCGACTGCGGAT       272     NW_023276806.1  34912   3       3S96M   *       0       0       TCTTGGCAAGACACCGGCCAGGGTCCACGCTAGTTATGGGAATCCAGCAAGAAA
 ACAGACAGATCAGAGAATTGCAACAGGAGAACAAAGAACTGCGAA   7///FFFB///B<//</<<///<///7<///<FBFFFFF<//F</F/F<//<B/F/FFFFB<BF<FFFB/<</FF/F/FFB</<FFFF<FFF/FBBB/B     NH:i:2  HI:i:2  AS:i:90 nM:i:2
 ```
-*) provide ./raw/reactive-genes.txt & ./raw/non-reactive-genes.txt
+- provide ./raw/reactive-genes.txt & ./raw/non-reactive-genes.txt
 ```
 $ head non-reactive-genes.txt 
 Rpe65
@@ -96,7 +96,7 @@ LOC100752806
 Gbp5
 LOC100750831
 ```
-*) provide ./raw/library_for_mageck_count.txt
+- provide ./raw/library_for_mageck_count.txt
 ```
 $ head library_for_mageck_count.txt 
 >595-w10_NC_048595_1_1499500-1499519_NC_048595_1_1650461-1650480        GAAAACCTGATTGACACATG    595-w10
@@ -110,7 +110,7 @@ $ head library_for_mageck_count.txt
 >595-w100_NC_048595_1_14999285-14999304_NC_048595_1_15150001-15150020   TGTGTGTGCACATACCCCTG    595-w100
 >595-w100_NC_048595_1_14999286-14999305_NC_048595_1_15150169-15150188   GTGTGTGCACATACCCCTGA    595-w100
 ```
-*) provide ./raw/library_for_mageck_count.txt
+- provide ./raw/library_for_mageck_count.txt
 ```
 $ head pgRNA_gene_id_sequence_list.fa
 >>595-w10_NC_048595_1_1499500-1499519_NC_048595_1_1650461-1650480
@@ -124,3 +124,29 @@ CATGTGGTGACCTTGGAACG
 >>595-w10_NC_048595_1_1499812-1499831_NC_048595_1_1650218-1650237
 CACAGGGAAAGAGCCTGGTG
 ```
+### general workflow:
+1. Rename and unzip files. ([01_prep_data.smk](workflow/rules/01_prep_data.smk)
+2. Merge both flowcells. ([02_merge_flowcells.smk](workflow/rules/02_merge_flowcells.smk)
+3. Merge forward and reverse reads. ([03_merge_overlapping.smk](workflow/rules/03_merge_overlapping.smk)
+4. Sort read directions. ([04_sort_directions.smk](workflow/rules/04_sort_directions.smk)
+5. Turn reversed facing reads. ([05_turn_reverse.smk](workflow/rules/05_turn_reverse.smk)
+6. Combine ([06_combine_amp.smk](workflow/rules/06_combine_amp.smk)
+7. Trimming reads ([07_trim.smk](workflow/rules/07_trim.smk)
+8. Alignment 'Bowtie2' ([08_bowtei2.smk](workflow/rules/08_bowtie2.smk)
+9. Change .sam to .bam ([09_samtools.smk](workflow/rules/09_samtools.smk)
+10. Generate counttable out of .bam-files using 'mageck' ([10_2_mageck_count_bam.smk](workflow/rules/10_2_mageck_count_bam.smk)
+11. Generate counttable out of .fasta-files using 'mageck' ([11_2_mageck_count.smk](workflow/rules/11_2_mageck_count.smk)
+12. Remove low-count guides ([12_2_remove_zeros.smk](workflow/rules/12_2_remove_zeros.smk)
+13. Descriptive statistics ([13_2_descriptive_statistics.smk](workflow/rules/13_2_descriptive_statistics.smk)
+14. Prepare for ranking ([14_2_prepare_mageck_test.smk](workflow/rules/14_2_prepare_mageck_test.smk)
+15. Move files to different folder ([15_2_move_files.smk](workflow/rules/15_2_move_files.smk)
+16. Guide ranking ([17_2_test_mageck_rra.smk](workflow/rules/17_2_test_mageck_rra.smk)
+17. Combine results from "counttable .bam" and "counttable .fasta" ([18_2_combine_tables.smk](workflow/rules/18_2_combine_tables.smk)
+18. Classify non-essential regions ([19_2_non_essential.smk](workflow/rules/19_2_non_essential.smk)
+19. combine informatino in a table ([20_summary_table.smk](workflow/rules/20_summary_table.smk)
+20. Find transcripts in essential regions using 'Rsubread' ([21_find_transcripts.smk](workflow/rules/21_find_transcripts.smk)
+21. Normalisation of transcript-data ([22_normailse_transcripts.smk](workflow/rules/22_normailse_transcripts.smk)
+22. Plot essential regions ([23_plot_region_details.smk](workflow/rules/23_plot_region_details.smk)
+23. Sort results ([24_sort_results.smk](workflow/rules/24_sort_results.smk)
+24. Create a summary table ([25_create_summary_table.smk](workflow/rules/25_create_summary_table.smk)
+
