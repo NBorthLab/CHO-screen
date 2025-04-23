@@ -11,7 +11,7 @@ rule combine_bowtie_mageck:
         table_long = "results/genes_in_windows.txt",
         all_regions_summary = "results/gene_summary_all.txt",
         summary = "results/summary_all_tables.txt",
-        neg_results = "results/negative_results_table.txt",
+        results = "results/results_table.txt",
         essential_all = "results/gene_all.txt",
     params:
         path_to_output_folder = "results/",

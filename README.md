@@ -11,8 +11,8 @@ The work aims to identify using a genome-scale CRISPR screen approach.
 ./
 ├── config/                                 # (provide) configurations
 ├── resources/                              # Raw-data and other resources
-│   ├── aligned/                            # Intermediate results
-│   ├── flowcell_merged/                    # Intermediate results
+│   ├── aligned/                            # Intermediate results
+│   ├── flowcell_merged/                    # Intermediate results
 │   ├── raw/                                # (provide) Raw-data
 │   │  ├── 53h_dense.bed                    # (provide) Chromatin states****
 │   │  ├── aligned_sorted_INH040x.bam       # (provide) Transcripomics data
@@ -20,31 +20,32 @@ The work aims to identify using a genome-scale CRISPR screen approach.
 │   │  ├── non-reactive-genes.txt           # (provide) List of non reactive Genes
 │   │  ├── library_for_mageck_count.txt     # (provide) pgRNA library used for MAGeCK count
 │   │  ├── pgRNA-gene-id-sequence-list.fa   # (provide) pgRNA library used for Bowtie2
-|   |  ├── flowcell_1/                      # (provide) .fasta.gz from sequencing
-|   |  └── flowcell_2/                      # (provide) .fasta.gz from sequencing
-|   ├── table_bowtieM/                      # Intermediate results 
-|   |  └── results/                         # Intermediate results
-|   └── table_mageck/                       # Intermediate results
-|      └── results/                         # Intermediate results
+│   │  ├── flowcell_1/                      # (provide) .fasta.gz from sequencing
+│   │  └── flowcell_2/                      # (provide) .fasta.gz from sequencing
+│   ├── table_bowtieM/                      # Intermediate results 
+│   │  └── results/                         # Intermediate results
+│   └── table_mageck/                       # Intermediate results
+│      └── results/                         # Intermediate results
 ├── results/                                # Intermediate results
 │   ├── table_bowtieM/                      # Intermediate results
-|   └── table_mageck/                       # Intermediate results 
+│   └── table_mageck/                       # Intermediate results 
 ├── results_overview/                       # Results produced in the workflow
 │   └── table_bowtieM/                      # Results produced in the workflow
-|      ├── results/                         # Results produced in the workflow
-|      └── table_mageck/                    # Results produced in the workflow
+│      ├── results/                         # Results produced in the workflow
+│      └── table_mageck/                    # Results produced in the workflow
 ├── workflow/                               # Workflow definitions
-|   ├── profiles/                           # Snakemake profiles
-│   ├── envs/                               # Conda environments
-│   ├── rules/                              # Snakemake rules
-│   ├── scripts/                            # Scripts
-│   └── Snakefile                           # Main Snakefile
+│   ├── profiles/                           # Snakemake profiles
+│   ├── envs/                               # Conda environments
+│   ├── envs/                               # Conda environments
+│   ├── rules/                              # Snakemake rules
+│   ├── scripts/                            # Scripts
+│   └── Snakefile                           # Main Snakefile
 └── README.md
 ```
 
 ### preprocess for workflow:
 - update parameters within ./config/config.yaml
-- provide ./raw/53h_dense.bed in structure
+- provide ./raw/53h_dense.bed
 ```
 $ head 53h_dense.bed 
 #track name="Tp4" description="Tp4 (Emission ordered)" visibility=1 itemRgb="On"
@@ -124,29 +125,32 @@ CATGTGGTGACCTTGGAACG
 >>595-w10_NC_048595_1_1499812-1499831_NC_048595_1_1650218-1650237
 CACAGGGAAAGAGCCTGGTG
 ```
+
 ### general workflow:
-1. Rename and unzip files using 'pigz'. ([01_prep_data.smk](workflow/rules/01_prep_data.smk)
-2. Merge both flowcells using 'cat'. ([02_merge_flowcells.smk](workflow/rules/02_merge_flowcells.smk)
-3. Merge paired end reads into an overlapping fragment using ''. ([03_merge_overlapping.smk](workflow/rules/03_merge_overlapping.smk)
-4. Sort for read directions using 'awk'. ([04_sort_directions.smk](workflow/rules/04_sort_directions.smk)
-5. Turn reversed reads using ''. ([05_turn_reverse.smk](workflow/rules/05_turn_reverse.smk)
-6. Combine amplicons using 'cat'. ([06_combine_amp.smk](workflow/rules/06_combine_amp.smk)
-7. Trimming reads using ''. ([07_trim.smk](workflow/rules/07_trim.smk)
-8. Alignment using 'Bowtie2' ([08_bowtei2.smk](workflow/rules/08_bowtie2.smk)
-9. Change .sam to .bam using 'samtools'. ([09_samtools.smk](workflow/rules/09_samtools.smk)
-10. Generate counttable out of .bam-files using 'mageck' ([10_2_mageck_count_bam.smk](workflow/rules/10_2_mageck_count_bam.smk)
-11. Generate counttable out of .fasta-files using 'mageck' ([11_2_mageck_count.smk](workflow/rules/11_2_mageck_count.smk)
-12. Remove low-count guides ([12_2_remove_zeros.smk](workflow/rules/12_2_remove_zeros.smk)
-13. Descriptive statistics ([13_2_descriptive_statistics.smk](workflow/rules/13_2_descriptive_statistics.smk)
-14. Prepare for ranking, create table with samples using 'R'. ([14_2_prepare_mageck_test.smk](workflow/rules/14_2_prepare_mageck_test.smk)
-15. Restructure folders using 'mv'. ([15_2_move_files.smk](workflow/rules/15_2_move_files.smk)
-16. Guide ranking using 'mageck' ([17_2_test_mageck_rra.smk](workflow/rules/17_2_test_mageck_rra.smk)
-17. Combine results from "counttable .bam" and "counttable .fasta" ([18_2_combine_tables.smk](workflow/rules/18_2_combine_tables.smk)
-18. Classify non-essential regions ([19_2_non_essential.smk](workflow/rules/19_2_non_essential.smk)
-19. combine informatino in a table ([20_summary_table.smk](workflow/rules/20_summary_table.smk)
-20. Find transcripts in essential regions using 'Rsubread' ([21_find_transcripts.smk](workflow/rules/21_find_transcripts.smk)
-21. Normalisation of transcript-data ([22_normailse_transcripts.smk](workflow/rules/22_normailse_transcripts.smk)
-22. Plot essential regions ([23_plot_region_details.smk](workflow/rules/23_plot_region_details.smk)
-23. Sort results ([24_sort_results.smk](workflow/rules/24_sort_results.smk)
-24. Create a summary table ([25_create_summary_table.smk](workflow/rules/25_create_summary_table.smk)
+1. Rename and unzip files using 'pigz'. ([01_prep_data.smk](workflow/rules/01_prep_data.smk))
+2. Merge both flowcells using 'cat'. ([02_merge_flowcells.smk](workflow/rules/02_merge_flowcells.smk))
+3. Merge paired end reads into an overlapping fragment using 'pear'. ([03_merge_overlapping.smk](workflow/rules/03_merge_overlapping.smk))
+4. Sort for read directions using 'fastq-grep'. ([04_sort_directions.smk](workflow/rules/04_sort_directions.smk))
+5. Turn reversed reads using 'bioawk'. ([05_turn_reverse.smk](workflow/rules/05_turn_reverse.smk))
+6. Combine amplicons using 'cat'. ([06_combine_amp.smk](workflow/rules/06_combine_amp.smk))
+7. Trimming reads using 'cutadapt'. ([07_trim.smk](workflow/rules/07_trim.smk))
+8. Alignment using 'bowtie2' ([08_bowtei2.smk](workflow/rules/08_bowtie2.smk))
+9. Change .sam to .bam using 'samtools'. ([09_samtools.smk](workflow/rules/09_samtools.smk))
+10. Generate counttable out of .bam-files using 'mageck' ([10_2_mageck_count_bam.smk](workflow/rules/10_2_mageck_count_bam.smk))
+11. Generate counttable out of .fasta-files using 'mageck' ([11_2_mageck_count.smk](workflow/rules/11_2_mageck_count.smk))
+12. Remove low-count guides using 'Rscript'. ([12_2_remove_zeros.smk](workflow/rules/12_2_remove_zeros.smk))
+13. Descriptive statistics using 'Rscript'. ([13_2_descriptive_statistics.smk](workflow/rules/13_2_descriptive_statistics.smk))
+14. Prepare for ranking, create table with samples using 'Rscript'. ([14_2_prepare_mageck_test.smk](workflow/rules/14_2_prepare_mageck_test.smk))
+15. Restructure folders using 'mv'. ([15_2_move_files.smk](workflow/rules/15_2_move_files.smk))
+16. Guide ranking using 'mageck' ([17_2_test_mageck_rra.smk](workflow/rules/17_2_test_mageck_rra.smk))
+17. Combine results from "counttable .bam" and "counttable .fasta" using 'Rscript'. ([18_2_combine_tables.smk](workflow/rules/18_2_combine_tables.smk))
+18. Categorize non-essential regions using 'Rscript'. ([19_2_non_essential.smk](workflow/rules/19_2_non_essential.smk))
+19. combine informatino in a table using 'Rscript'. ([20_summary_table.smk](workflow/rules/20_summary_table.smk))
+20. Compare transcripts in essential regions using 'Rscript'. ([21_find_transcripts.smk](workflow/rules/21_find_transcripts.smk))
+21. Normalisation of transcript-data using 'Rscript'. ([22_normailse_transcripts.smk](workflow/rules/22_normalise_transcripts.smk))
+22. Plot essential regions using 'Rscript'. ([23_plot_region_details.smk](workflow/rules/23_plot_region_details.smk))
+23. Sort results ([25_sort_results.smk](workflow/rules/25_sort_the_results.smk))
+24. Create a summary table ([26_create_summary_table.smk](workflow/rules/26_summary_table.smk))
+
+
 
