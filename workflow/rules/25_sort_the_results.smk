@@ -1,4 +1,4 @@
-# plot all interesting regions incl annotation, chrom_state, transcripts
+# restructure directory to results_overview
 rule symlinks_for_sorted_results:
     input:
         count_table_mageck = "resources/table_mageck/" + RUN_NAME + ".count_nozero.txt", 

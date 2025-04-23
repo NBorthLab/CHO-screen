@@ -1,6 +1,6 @@
 MAGECK_LIBRARY = config["mageck_library_config"]
 
-# plot all interesting regions incl annotation, chrom_states, transcripts
+# create an overview table
 rule summary_table_overview:
     input:
         results_table = "results/summary_table.txt",

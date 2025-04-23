@@ -61,7 +61,7 @@ The work aims to identify using a genome-scale CRISPR screen approach.
 12. Remove low-count guides using `Rscript`. ([12_2_remove_zeros.smk](workflow/rules/12_2_remove_zeros.smk))
 13. Descriptive statistics using `Rscript`. ([13_2_descriptive_statistics.smk](workflow/rules/13_2_descriptive_statistics.smk))
 14. Prepare for ranking, create table with samples using `Rscript`. ([14_2_prepare_mageck_test.smk](workflow/rules/14_2_prepare_mageck_test.smk))
-15. Restructure folders using `mv`. ([15_2_move_files.smk](workflow/rules/15_2_move_files.smk))
+15. Restructure directory using `mv`. ([15_2_move_files.smk](workflow/rules/15_2_move_files.smk))
 16. Guide ranking using `mageck` ([17_2_test_mageck_rra.smk](workflow/rules/17_2_test_mageck_rra.smk))
 17. Combine results from "counttable .bam" and "counttable .fasta" using `Rscript`. ([18_2_combine_tables.smk](workflow/rules/18_2_combine_tables.smk))
 18. Categorize non-essential regions using `Rscript`. ([19_2_non_essential.smk](workflow/rules/19_2_non_essential.smk))
@@ -69,8 +69,8 @@ The work aims to identify using a genome-scale CRISPR screen approach.
 20. Compare transcripts in essential regions using `Rscript`. ([21_find_transcripts.smk](workflow/rules/21_find_transcripts.smk))
 21. Normalisation of transcript-data using `Rscript`. ([22_normailse_transcripts.smk](workflow/rules/22_normalise_transcripts.smk))
 22. Plot essential regions using `Rscript`. ([23_plot_region_details.smk](workflow/rules/23_plot_region_details.smk))
-23. Sort results ([25_sort_results.smk](workflow/rules/25_sort_the_results.smk))
-24. Create a summary table ([26_create_summary_table.smk](workflow/rules/26_summary_table.smk))
+23. Restructure directory for results_overview using symlinks. ([25_sort_results.smk](workflow/rules/25_sort_the_results.smk))
+24. Create a summary table using `Rscript`. ([26_create_summary_table.smk](workflow/rules/26_summary_table.smk))
 
 
 
