@@ -11,7 +11,7 @@ rule rename_files_0:
         s9= "resources/raw/flowcell_1/215725_S9_L004_R{strand}_001.fastq.gz", 
         s10= "resources/raw/flowcell_1/215726_S10_L004_R{strand}_001.fastq.gz",
         s11= "resources/raw/flowcell_1/215727_S11_L004_R{strand}_001.fastq.gz",
-      # #s12= "resources/raw/flowcell_1/216037_S12_L004_R{strand}_001.fastq.gz", #plasmid
+      # #s12= "resources/raw/flowcell_1/216037_S12_L004_R{strand}_001.fastq.gz",
 
         s21= "resources/raw/flowcell_2/215716_S1_L001_R{strand}_001.fastq.gz",
         s22= "resources/raw/flowcell_2/215717_S2_L001_R{strand}_001.fastq.gz",

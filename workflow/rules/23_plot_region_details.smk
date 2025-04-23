@@ -9,7 +9,7 @@ rule plot_region_details:
         gtf = "resources/raw/GCF_003668045.3_CriGri-PICRH-1.0_genomic.gff",
         selection_table = "results/{selection}.txt",
         #table with regions in column called "id"
-   output:
+    output:
         "results_overview/plot_region_details_{selection}.pdf"
     params:
         txdb = "resources/raw/GCF_003668045.3_CriGri-PICRH-1.0_genomic.sqlite",
