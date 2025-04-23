@@ -44,7 +44,7 @@ The work aims to identify using a genome-scale CRISPR screen approach.
 ```
 
 ### Pipeline
-[dag.png](dag.png)
+![dag.png](dag.png)
 
 ### general workflow:
 1. Rename and unzip files using 'pigz'. ([01_prep_data.smk](workflow/rules/01_prep_data.smk))
