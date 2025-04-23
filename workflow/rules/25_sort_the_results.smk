@@ -1,5 +1,5 @@
 # restructure directory to results_overview
-rule symlinks_for_sorted_results:
+rule symlinks_for_results_overview:
     input:
         count_table_mageck = "resources/table_mageck/" + RUN_NAME + ".count_nozero.txt", 
         count_table_bowtie = "resources/table_bowtieM/" + RUN_NAME + ".count_nozero.txt", 
