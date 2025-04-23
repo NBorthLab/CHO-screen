@@ -127,9 +127,9 @@ CACAGGGAAAGAGCCTGGTG
 ### general workflow:
 1. Rename and unzip files. ([01_prep_data.smk](workflow/rules/01_prep_data.smk)
 2. Merge both flowcells. ([02_merge_flowcells.smk](workflow/rules/02_merge_flowcells.smk)
-3. Merge forward and reverse reads. ([03_merge_overlapping.smk](workflow/rules/03_merge_overlapping.smk)
-4. Sort read directions. ([04_sort_directions.smk](workflow/rules/04_sort_directions.smk)
-5. Turn reversed facing reads. ([05_turn_reverse.smk](workflow/rules/05_turn_reverse.smk)
+3. Merge paired end reads into an overlapping fragment. ([03_merge_overlapping.smk](workflow/rules/03_merge_overlapping.smk)
+4. Sort for read directions. ([04_sort_directions.smk](workflow/rules/04_sort_directions.smk)
+5. Turn reversed reads. ([05_turn_reverse.smk](workflow/rules/05_turn_reverse.smk)
 6. Combine ([06_combine_amp.smk](workflow/rules/06_combine_amp.smk)
 7. Trimming reads ([07_trim.smk](workflow/rules/07_trim.smk)
 8. Alignment 'Bowtie2' ([08_bowtei2.smk](workflow/rules/08_bowtie2.smk)
