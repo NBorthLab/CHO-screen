@@ -1,13 +1,13 @@
-# CHO-screen
+# CHO-essentialome
 
-This repository contains the analysis pipeline and relevant scripts described in the [original publication title] [doi]. 
-The work aims to identify using a genome-scale CRISPR screen approach.
+This repository hosts the analysis pipeline and the relevant scripts described in the manuscript ***"A genome-scale CRISPR deletion screen in Chinese Hamster Ovary cells reveals essential regions of the coding and non-coding genome"***_ **[doi]**. The work aims to uncover the genomic regions essential for CHO cell survival using a genome-scale CRISPR screening approach. 
 
-[abstract]
+**[Abstract]**
 
+
+## File structure
 
 ```
-## Filestructure
 ./
 ├── config/                                 # (provide) configurations
 ├── resources/                              # Raw-data and other resources
@@ -43,10 +43,10 @@ The work aims to identify using a genome-scale CRISPR screen approach.
 └── README.md
 ```
 
-### Pipeline
+## Pipeline
 ![dag.png](dag.png)
 
-### general workflow:
+## General Workflow
 1. Rename and unzip files using `pigz`. ([01_prep_data.smk](workflow/rules/01_prep_data.smk))
 2. Merge both flowcells using `cat`. ([02_merge_flowcells.smk](workflow/rules/02_merge_flowcells.smk))
 3. Merge paired end reads into an overlapping fragment using `pear`. ([03_merge_overlapping.smk](workflow/rules/03_merge_overlapping.smk))
