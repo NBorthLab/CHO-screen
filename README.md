@@ -64,13 +64,12 @@ This repository hosts the analysis pipeline and the relevant scripts described i
 15. Restructure directory using `mv`. ([15_2_move_files.smk](workflow/rules/15_2_move_files.smk))
 16. Guide ranking using `mageck` ([17_2_test_mageck_rra.smk](workflow/rules/17_2_test_mageck_rra.smk))
 17. Combine results from "counttable .bam" and "counttable .fasta" using `Rscript`. ([18_2_combine_tables.smk](workflow/rules/18_2_combine_tables.smk))
-18. Categorize non-essential regions using `Rscript`. ([19_2_non_essential.smk](workflow/rules/19_2_non_essential.smk))
-19. combine informatino in a table using `Rscript`. ([20_summary_table.smk](workflow/rules/20_summary_table.smk))
-20. Compare transcripts in essential regions using `Rscript`. ([21_find_transcripts.smk](workflow/rules/21_find_transcripts.smk))
-21. Normalisation of transcript-data using `Rscript`. ([22_normailse_transcripts.smk](workflow/rules/22_normalise_transcripts.smk))
-22. Plot essential regions using `Rscript`. ([23_plot_region_details.smk](workflow/rules/23_plot_region_details.smk))
-23. Restructure directory for results_overview using symlinks. ([25_sort_results.smk](workflow/rules/25_sort_the_results.smk))
-24. Create a summary table using `Rscript`. ([26_create_summary_table.smk](workflow/rules/26_summary_table.smk))
+18. combine informatino in a table using `Rscript`. ([20_summary_table.smk](workflow/rules/20_summary_table.smk))
+19. Compare transcripts in essential regions using `Rscript`. ([21_find_transcripts.smk](workflow/rules/21_find_transcripts.smk))
+20. Normalisation of transcript-data using `Rscript`. ([22_normailse_transcripts.smk](workflow/rules/22_normalise_transcripts.smk))
+21. Plot essential regions using `Rscript`. ([23_plot_region_details.smk](workflow/rules/23_plot_region_details.smk))
+22. Restructure directory for results_overview using symlinks. ([25_sort_results.smk](workflow/rules/25_sort_the_results.smk))
+23. Create a summary table using `Rscript`. ([26_create_summary_table.smk](workflow/rules/26_summary_table.smk))
 
 
 
@@ -142,7 +141,7 @@ $ head library_for_mageck_count.txt
 >595-w100_NC_048595_1_14999285-14999304_NC_048595_1_15150001-15150020   TGTGTGTGCACATACCCCTG    595-w100
 >595-w100_NC_048595_1_14999286-14999305_NC_048595_1_15150169-15150188   GTGTGTGCACATACCCCTGA    595-w100
 ```
-- provide ./raw/library_for_mageck_count.txt
+- provide ./raw/library_for_bowtie_count.txt
 ```
 $ head pgRNA_gene_id_sequence_list.fa
 >>595-w10_NC_048595_1_1499500-1499519_NC_048595_1_1650461-1650480
