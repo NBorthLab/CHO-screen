@@ -24,7 +24,7 @@ include: "rules/14_2_prepare_mageck_test.smk"
 include: "rules/15_2_move_files.smk"
 include: "rules/17_2_test_mageck_rra.smk"
 include: "rules/18_2_combine_tables.smk"
-include: "rules/19_2_non_essential.smk"
+#include: "rules/19_2_non_essential.smk"
 include: "rules/20_summary_table.smk"
 include: "rules/21_find_transcripts.smk"
 include: "rules/22_normalise_transcripts.smk"
@@ -61,7 +61,7 @@ rule all:
         #18_combine_tables
         "results/genes_in_windows.txt",
         #19_cat_non_essential
-        "results/selected_least_essential.txt",
+ #       "results/selected_least_essential.txt",
         #20_summary_table
         "results/summary_table.txt",
         #21_find_transcripts

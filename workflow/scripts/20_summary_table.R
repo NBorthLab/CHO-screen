@@ -1,11 +1,11 @@
 folder_args <- commandArgs(trailingOnly = TRUE)
 
 path_to_input_summary_all_tables <- folder_args[1]
-path_to_input_file_least_essential <- folder_args[2]
-target_gene_all <- folder_args[3]
-chromatin_states_filename <- folder_args[4]
-input_folder_chromatin_states <- folder_args[5]
-outputfolder <- folder_args[6]
+#path_to_input_file_least_essential <- folder_args[2]
+target_gene_all <- folder_args[2]
+chromatin_states_filename <- folder_args[3]
+input_folder_chromatin_states <- folder_args[4]
+outputfolder <- folder_args[5]
 
 library(dplyr)
 library(data.table)
@@ -35,12 +35,13 @@ save_table_to_csv <-  function(filename_table_input, outputfolder, c_row_names =
 ## update averything summary_tabla with classification:
 
 everything_for_fede <- read_new_file(path_to_input_summary_all_tables)
-selected_least_essential <- read_new_file(path_to_input_file_least_essential)
+#selected_least_essential <- read_new_file(path_to_input_file_least_essential)
 target_gene_all <- read_new_file(target_gene_all)
 
 everything_for_fede$classification <- rep("undefined", length(everything_for_fede$id))
-everything_for_fede$classification <- ifelse(everything_for_fede$id %in% target_gene_all$id, "essential",
-                                             ifelse(everything_for_fede$id %in% selected_least_essential$id, "non_essential", "undefined"))
+everything_for_fede$classification <- ifelse(everything_for_fede$id %in% target_gene_all$id, "essential", "undefined")
+
+##                                             ifelse(everything_for_fede$id %in% selected_least_essential$id, "non_essential", "undefined"))
 
 everything_for_fede <- select(everything_for_fede, id, chromosome, windowbegin, windowend, LFC, FDR, classification, Genes, everything())
 colnames(everything_for_fede) <- c("ID", "Chromosome", "Region_Start", "Region_End", "LFC", "FDR", "classification", "Genes",

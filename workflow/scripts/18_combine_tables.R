@@ -137,8 +137,8 @@ gene_summary_all$FDR.mageck[abs(gene_summary_all$neg_lfc.mageck) > gene_summary_
  gene_summary_all$LFC[gene_summary_all$FDR.bowtie < gene_summary_all$FDR.mageck] = 
  gene_summary_all$LFC.bowtie[gene_summary_all$FDR.bowtie < gene_summary_all$FDR.mageck]
 
-
-_gene_all <- subset(gene_summary_all, gene_summary_all$FDR <= fdr_cutoff & gene_summary_all$LFC <= lfc_cutoff, 
+print("subsetting")
+J_gene_all <- subset(gene_summary_all, gene_summary_all$FDR <= fdr_cutoff & gene_summary_all$LFC <= lfc_cutoff, 
                               select = !(grepl("^pos", colnames(gene_summary_all))))
 
 
@@ -154,11 +154,11 @@ colors_venn <- c('#d9f0d3',"#CCEBC5" )
    theme(plot.title = element_text(hjust = 0.5))
  }
 
-venn_diagramm_data <- list(MAGeCK = _gene_all$id[_gene_all$FDR.mageck < fdr_cutoff],
-                           Bowtie2 = _gene_all$id[_gene_all$FDR.bowtie < fdr_cutoff]
+venn_diagramm_data <- list(MAGeCK = J_gene_all$id[J_gene_all$FDR.mageck < fdr_cutoff],
+                           Bowtie2 = J_gene_all$id[J_gene_all$FDR.bowtie < fdr_cutoff]
                            )
 
-venn_diagram_title <- paste0("Regions lead to depletion (", length(_gene_all$id), ")")
+venn_diagram_title <- paste0("Regions lead to depletion (", length(J_gene_all$id), ")")
 
 venn_category_names <- paste0(names(venn_diagramm_data)[1],"(", length(venn_diagramm_data[[1]]), ")")
 for(i in 2:length(names(venn_diagramm_data))) {
@@ -245,11 +245,11 @@ colnames(genes_in_windows_wide) <- c("id", "Genes" )
 
 
 gene_summary_all <- full_join(gene_summary_all, genes_in_windows_wide)
-_gene_all <- left_join(_gene_all, genes_in_windows_wide)
+J_gene_all <- left_join(J_gene_all, genes_in_windows_wide)
 colnames(genewindows) <- c("chromosome", "windowbegin", "windowend", "id")
 
-_results_table <- left_join(_gene_all, genewindows)
-_results_table <- subset(_results_table, select = c(chromosome, windowbegin, windowend, Genes) )
+J_results_table <- left_join(J_gene_all, genewindows)
+J_results_table <- subset(J_results_table, select = c(chromosome, windowbegin, windowend, Genes) )
 
 everything_for_fede <- left_join(gene_summary_all, genewindows)
 
@@ -257,11 +257,13 @@ summary_all_tables <- everything_for_fede
 
 print(paste0(outputfolder, substitute(summary_all_tables), ".txt"))
 
+results_table <- J_results_table
+
 save_table_to_csv(genes_in_windows, outputfolder, FALSE, TRUE)
 save_table_to_csv(gene_summary_all, outputfolder, FALSE, TRUE)
 save_table_to_csv(summary_all_tables, outputfolder, FALSE, TRUE)
-save_table_to_csv(_results_table, outputfolder, FALSE, TRUE)
+save_table_to_csv(results_table, outputfolder, FALSE, TRUE)
 
-gene_all <- _gene_all
+gene_all <- J_gene_all
 save_table_to_csv(gene_all, outputfolder, FALSE, TRUE)
 
